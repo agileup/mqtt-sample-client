@@ -3,9 +3,9 @@
 const fs = require('fs');
 const mqtt = require('mqtt');
 
-var KEY = fs.readFileSync('client.key');
-var CERT = fs.readFileSync('client.crt');
-const CAfile = [fs.readFileSync('client.crt')];
+// var KEY = fs.readFileSync('client.key');
+// var CERT = fs.readFileSync('client.crt');
+// const CAfile = [fs.readFileSync('client.crt')];
 const options = {
     host: 'mqtt.jandi.io',
     port: 8883,
@@ -50,7 +50,14 @@ client.on('error', function(err) {
 });
 
 client.on('message', function (topic, message) {
-    console.log(topic, ">>>>", message.toString());
+    switch(topic) {
+        case 'JANDI/test':
+            console.log(topic, ">>>>", message.toString());
+            break;
+        default:
+            console.error(topic, ">>>>", message.toString());
+            break;
+    }
     // client.end();
 });
 
