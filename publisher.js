@@ -13,28 +13,16 @@ const options = {
 const client = mqtt.connect(options);
 
 const INTERVAL = 5000;
+let seq = 0;
 
 client.on('connect', function () {
-    client.subscribe('#', { qos: 2 }, function(err, granted) {
-        if (err) {
-            console.error(err);
-        } else {
-            console.log("subscribed>", granted);
-        }
-    });
-});
-
-client.on('message', function (topic, message) {
-    console.log(topic, ">>>", message.toString());
-});
-
-const loopMessage = () => {
-	let seq = 0;
     async.forever(
         (next) => {
             setTimeout(() => {
             	seq++;
-            	client.publish('JANDI/test', `${seq} @ ${new Date()}`, { qos: 2 });
+            	const msg = `${seq} @ ${new Date()}`;
+            	client.publish('JANDI/test', msg, { qos: 2 });
+            	console.log(msg);
                 next();
             }, INTERVAL);
         },
@@ -42,5 +30,4 @@ const loopMessage = () => {
             logger.error("loopMessage>", err);
         }
     );
-};
-loopMessage();
+});

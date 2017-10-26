@@ -1,0 +1,22 @@
+[
+    {
+        "name": "sampleSubscriber",
+        "script": "index.js",
+        "cwd": "/srv/www/mqtt-sample-client",
+        "error_file": "/srv/www//logs/sampleSubscriber.err.log",
+        "out_file": "/srv/www//logs/sampleSubscriber.out.log",
+        "pid_file": "/srv/www//pids/sampleSubscriber.pid",
+        "merge_logs": true,
+        "exec_mode": "fork_mode"
+    },
+    {
+        "name": "samplePublisher",
+        "script": "publisher.js",
+        "cwd": "/srv/www/mqtt-sample-client",
+        "error_file": "/srv/www//logs/samplePublisher.err.log",
+        "out_file": "/srv/www//logs/samplePublisher.out.log",
+        "pid_file": "/srv/www//pids/samplePublisher.pid",
+        "merge_logs": true,
+        "exec_mode": "fork_mode"
+    }
+]
