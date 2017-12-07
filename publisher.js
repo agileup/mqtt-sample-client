@@ -6,13 +6,18 @@ const path = require('path');
 
 const mqtt = require('mqtt');
 const options = {
-    host: 'mqtt.jandi.io',
+    host: 'dev.mqtt.jandi.io',
     port: 8883,
     keepalive: 0,
+    protocol: 'mqtts',
+    protocolId: 'MQIsdp',
+    protocolVersion: 3,
+    secureProtocol: 'TLSv1_method',
+    rejectUnauthorized: false,
 };
 const client = mqtt.connect(options);
 
-const INTERVAL = 5000;
+const INTERVAL = 10;
 let seq = 0;
 
 client.on('connect', function () {

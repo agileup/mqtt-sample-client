@@ -7,24 +7,26 @@ const mqtt = require('mqtt');
 // var CERT = fs.readFileSync('client.crt');
 // const CAfile = [fs.readFileSync('client.crt')];
 const options = {
-    host: 'mqtt.jandi.io',
+    host: 'dev.mqtt.jandi.io',
     port: 8883,
     keepalive: 0,
     // clientId: 'MQTTjs-12345',
-    // protocol: 'mqtts',
-    // protocolId: 'MQIsdp',
-    // protocolVersion: 3,
+    protocol: 'mqtts',
+    protocolId: 'MQIsdp',
+    protocolVersion: 3,
     // ca: CAfile,
     // key: KEY,
     // cert: CERT,
-    // secureProtocol: 'TLSv1_method',
+    secureProtocol: 'TLSv1_method',
     rejectUnauthorized: false,
+    // username: 'username',
+    // password: 'password'
 };
 const client = mqtt.connect(options);
 
 client.on('connect', function () {
     console.log("\tconnected!");
-    client.subscribe('#', { qos: 2 }, function(err, granted) {
+    client.subscribe('JANDI/#', { qos: 2 }, function(err, granted) {
         if (err) {
             console.error(err);
         } else {
@@ -55,7 +57,7 @@ client.on('message', function (topic, message) {
             console.log(topic, ">>>>", message.toString());
             break;
         default:
-            console.error(topic, ">>>>", message.toString());
+            console.log(topic, "----", message.toString());
             break;
     }
     // client.end();
